@@ -1,4 +1,4 @@
-/* config.def.h - default tswm config. Copied to config.h on first build. */
+/*default tswm config. Copied to config.h on first build. */
 
 #ifndef CONFIG_H
 #define CONFIG_H
