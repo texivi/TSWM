@@ -1,4 +1,3 @@
-/* tswm.h - types and action prototypes for tswm */
 
 #ifndef TSWM_H
 #define TSWM_H
@@ -6,8 +5,8 @@
 #include <X11/Xlib.h>
 
 typedef union {
-    const char **cmd;   /* NULL terminated argv for spawn */
-    int i;              /* workspace index, cycle direction */
+    const char **cmd;  
+    int i;             
 } Arg;
 
 typedef struct {
@@ -20,14 +19,13 @@ typedef struct {
 typedef struct Client {
     struct Client *next;
     Window win;
-    int ws;                 /* workspace this window lives on */
-    int fs;                 /* fullscreen flag */
-    int unmaps;             /* unmaps we caused ourselves (workspace hiding) */
-    int x, y;               /* saved geometry for leaving fullscreen */
+    int ws;                
+    int fs;                 
+    int unmaps;             
+    int x, y;               
     unsigned int w, h;
 } Client;
 
-/* actions, usable from config.h */
 void spawn(const Arg *a);
 void close_win(const Arg *a);
 void fullscreen(const Arg *a);
