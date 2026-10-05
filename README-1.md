@@ -1,33 +1,71 @@
-# TSWM (Texivi Window Manager)
+# TSWM (Texivi's Simple Window Manager)
 
-A tiny floating X11 window manager in C. No bar, no borders, no extras.
-Part of the Texivi Software Suite (TSS).
+> A tiny, minimalist floating X11 window manager written in C.
 
-## Build and install
+Part of the **[Texivi Software Suite (TSS)](tss.md)**.
 
-    make
-    sudo make install        # also adds a TSWM entry for display managers
+---
 
-Without a display manager, put `exec tswm` in `~/.xinitrc` and run `startx`.
+## Installation
 
-Edit `config.def.h` (or `config.h` after the first build) to change keys
-or the terminal, then run `make` again.
+### 1. Clone the Repository
 
-## Keys (Super = MOD)
+```bash
+git clone [https://github.com/texivi/tswm.git](https://github.com/texivi/tswm.git)
+cd tswm
+```
 
-| Keys                       | Action                         |
-|----------------------------|--------------------------------|
-| Super + Enter              | open terminal (`xterm`)        |
-| Super + W                  | close window                   |
-| Super + F                  | toggle fullscreen              |
-| Super + C                  | center window                  |
-| Alt + Tab / Alt+Shift+Tab  | cycle windows                  |
-| Super + 1..6               | go to workspace                |
-| Super + Shift + 1..6       | send window to workspace       |
-| Super + Shift + Q          | quit TSWM                      |
-| Super + left drag          | move window                    |
-| Super + right drag         | resize window                  |
+### run the installer
 
-Focus follows the mouse.
+```bash
+./install.sh
+```
 
-Part of the Texivi project.
+*For non-interactive / automated setups, pass the `-y` flag:*
+
+```bash
+./install.sh -y
+```
+
+### 3. Manual Build (Alternative)
+
+If you prefer building directly with `make`:
+
+```bash
+make
+sudo make install
+```
+
+Without a display manager, add the following to your `~/.xinitrc` and run `startx`:
+
+```bash
+exec tswm
+```
+
+---
+
+## Configuration
+
+1. Edit `config.def.h` (or `config.h` after your first build).
+2. Modify whatever the fuck you want
+3. Recompile and install:
+   ```bash
+   make && sudo make install
+   ```
+
+---
+
+## Keybindings (Super = MOD) 
+
+| Keys | Action |
+| :--- | :--- |
+| `Super` + `Enter` | Open terminal (`xterm`) |
+| `Super` + `W` | Close window |
+| `Super` + `F` | Toggle fullscreen |
+| `Super` + `C` | Center window |
+| `Alt` + `Tab` / `Alt` + `Shift` + `Tab` | Cycle windows |
+| `Super` + `1..6` | Go to workspace 1–6 |
+| `Super` + `Shift` + `1..6` | Send window to workspace 1–6 |
+| `Super` + `Shift` + `Q` | Quit TSWM |
+| `Super` + left drag | Move window |
+| `Super` + right drag | Resize window |
