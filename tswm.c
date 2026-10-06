@@ -13,7 +13,6 @@
 
 
 /* config: edit this block, then re-run ./install.sh */
-
 /* workspaces and super key*/
 
 #define MOD Mod4Mask            
@@ -40,7 +39,7 @@ static void goto_ws(const Arg *a);
 static void send_ws(const Arg *a);
 static void quit(const Arg *a);
 
-static const char *term[] = {"xterm", NULL};
+static const char *term[] = {"/usr/bin/st", NULL};
 
 static const Key keys[] = {
 /* Keybinds */
@@ -88,7 +87,6 @@ static int running = 1;
 static unsigned int numlock;
 static Atom wm_protocols, wm_delete;
 
-/* mouse drag state (Super left to move, Super right to resize) */
 static Window drag_win;
 static unsigned int drag_button;
 static int drag_x, drag_y, drag_gx, drag_gy;
