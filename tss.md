@@ -2,10 +2,9 @@
 
 The TSS is a set of single-file Unix utilities following the Unkx philosophy and the TSP
 
-> *"Write programs that do one thing and do it well."*  
-> — **The Unix Philosophy**
+> *"do one thing and do it well."*  
 
---
+--+
 
 ## Texivi Software Philosophy (TSP)
 
