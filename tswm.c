@@ -40,7 +40,7 @@ static void goto_ws(const Arg *a);
 static void send_ws(const Arg *a);
 static void quit(const Arg *a);
 
-static const char *term[] = {"foot", NULL};
+static const char *term[] = {"st", NULL};
 
 static const Key keys[] = {
 /* Keybinds */
@@ -299,18 +299,20 @@ static void button_press(XEvent *e) {
     XWindowAttributes wa;
     Client *c = find(e->xbutton.subwindow);
 
-    if (!c || c->fs || !XGetWindowAttributes(dpy, c->win, &wa)) return;
+    if (c && !c->fs && XGetWindowAttributes(dpy, c->win, &wa) && (clean(e->xbutton.state) & MOD)) {
+        drag_win    = c->win;
+        drag_button = e->xbutton.button;
+        drag_x      = e->xbutton.x_root;
+        drag_y      = e->xbutton.y_root;
+        drag_gx     = wa.x;
+        drag_gy     = wa.y;
+        drag_gw     = (unsigned int)wa.width;
+        drag_gh     = (unsigned int)wa.height;
 
-    drag_win    = c->win;
-    drag_button = e->xbutton.button;
-    drag_x      = e->xbutton.x_root;
-    drag_y      = e->xbutton.y_root;
-    drag_gx     = wa.x;
-    drag_gy     = wa.y;
-    drag_gw     = (unsigned int)wa.width;
-    drag_gh     = (unsigned int)wa.height;
-
-    raise_focus(c);
+        raise_focus(c);
+    } else {
+        XAllowEvents(dpy, ReplayPointer, CurrentTime);
+    }
 }
 
 static void button_release(XEvent *e) {
@@ -432,7 +434,7 @@ static void grab_input(void) {
         for (j = 0; j < 4; j++)
             XGrabButton(dpy, i, MOD | mods[j], root, True,
                         ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-                        GrabModeAsync, GrabModeAsync, None, None);
+                        GrabModeSync, GrabModeAsync, None, None);
 }
 
 static void mapping_notify(XEvent *e) {
