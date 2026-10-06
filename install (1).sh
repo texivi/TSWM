@@ -1,12 +1,4 @@
 #!/bin/sh
-# install.sh - build and install TSWM, then offer to add it to your login screen.
-# Needs only tswm.c next to it, a C compiler and the X11 headers.
-#
-#   ./install.sh              build, install, and ask about the login entry
-#   ./install.sh -y           same, answer yes to every question
-#   ./install.sh uninstall    remove the binary and the login entry
-#
-# Part of the Texivi Software Suite (TSS).
 
 set -e
 cd "$(dirname "$0")"
@@ -16,7 +8,6 @@ BINDIR=$PREFIX/bin
 XSESSIONS=${XSESSIONS:-/usr/share/xsessions}
 ENTRY=$XSESSIONS/tswm.desktop
 
-# privileged commands: plain when root, sudo otherwise (SUDO= overrides)
 if [ -z "${SUDO+x}" ]; then
     if [ "$(id -u)" -eq 0 ]; then SUDO=""; else SUDO="sudo"; fi
 fi
@@ -31,7 +22,7 @@ for arg in "$@"; do
     esac
 done
 
-ask() {  # ask "question" -> 0 for yes (default yes)
+ask() { 
     [ "$YES" -eq 1 ] && return 0
     printf '%s [Y/n] ' "$1"
     read -r ans || ans=n
@@ -62,7 +53,6 @@ detect_dm() {
     esac
 }
 
-# for managers without a session menu (and for plain startx)
 xinit_fallback() {
     file=$1
     if [ -f "$file" ] && grep -q 'exec tswm' "$file"; then
