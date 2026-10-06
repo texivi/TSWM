@@ -19,7 +19,7 @@ Part of The [Texivi software suite](tss.md).
 
 - A C compiler
 - Xlib headers
-- `xterm` terminal (the default, easy to change, see below)
+- `st` terminal (the default, easy to change, see below)
 
 ## Install
 
