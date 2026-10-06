@@ -1,4 +1,4 @@
-/* tswm - Texivi Window Manager. A tiny floating X11 window manager.
+/* tswm - Texivis Suckless Window Manager. A tiny floating X11 window manager.
  * Part of the Texivi Software Suite (TSS). */
 
 #include <X11/Xlib.h>
@@ -12,14 +12,16 @@
 #include <unistd.h>
 
 
-/* ---- config: edit this block, then re-run ./install.sh ---- */
+/* config: edit this block, then re-run ./install.sh */
 
-#define MOD Mod4Mask            /* Super key */
-#define NWS 6                   /* number of workspaces */
+/* workspaces and super key*/
+
+#define MOD Mod4Mask            
+#define NWS 6                   
 
 typedef union {
-    const char **cmd;           /* NULL terminated argv for spawn */
-    int i;                      /* workspace index, cycle direction */
+    const char **cmd;           
+    int i;                      
 } Arg;
 
 typedef struct {
@@ -41,6 +43,8 @@ static void quit(const Arg *a);
 static const char *term[] = {"xterm", NULL};
 
 static const Key keys[] = {
+/* Keybinds */
+
     /* modifier           key        action      argument */
     {MOD,                 XK_Return, spawn,      {.cmd = term}},
     {MOD,                 XK_w,      close_win,  {0}},
@@ -65,28 +69,26 @@ static const Key keys[] = {
     {MOD|ShiftMask,       XK_6,      send_ws,    {.i = 5}},
 };
 
-/* ---- end of config ---- */
-
 typedef struct Client {
     struct Client *next;
     Window win;
-    int ws;                     /* workspace this window lives on */
-    int fs;                     /* fullscreen flag */
-    int unmaps;                 /* unmaps we caused ourselves (workspace hiding) */
-    int x, y;                   /* saved geometry for leaving fullscreen */
+    int ws;                     
+    int fs;                     
+    int unmaps;                 
+    int x, y;                   
     unsigned int w, h;
 } Client;
 
 static Display *dpy;
 static Window root;
-static int sw, sh;                      /* screen size */
-static Client *clients, *cur;           /* client list (oldest first), focus */
-static int ws;                          /* current workspace */
+static int sw, sh;                     
+static Client *clients, *cur;           
+static int ws;                          
 static int running = 1;
 static unsigned int numlock;
 static Atom wm_protocols, wm_delete;
 
-/* mouse drag state (Super + left = move, Super + right = resize) */
+/* mouse drag state (Super left to move, Super right to resize) */
 static Window drag_win;
 static unsigned int drag_button;
 static int drag_x, drag_y, drag_gx, drag_gy;
@@ -114,7 +116,6 @@ static void focus(Client *c) {
         XSetInputFocus(dpy, PointerRoot, RevertToPointerRoot, CurrentTime);
 }
 
-/* focus the newest window on the current workspace */
 static void focus_top(void) {
     Client *c, *top = NULL;
 
@@ -163,7 +164,7 @@ static void manage(Window w, int adopt) {
 
     XSelectInput(dpy, w, StructureNotifyMask | EnterWindowMask);
 
-    /* windows that ask for 0,0 get centered */
+    
     if (!adopt && wa.x == 0 && wa.y == 0) {
         int x = (sw - (wa.width  + 2 * wa.border_width)) / 2;
         int y = (sh - (wa.height + 2 * wa.border_width)) / 2;
@@ -171,7 +172,6 @@ static void manage(Window w, int adopt) {
     }
 }
 
-/* ---- actions ---- */
 
 static void spawn(const Arg *a) {
     if (fork() == 0) {
@@ -205,7 +205,7 @@ static void close_win(const Arg *a) {
         ev.xclient.data.l[1]    = CurrentTime;
         XSendEvent(dpy, cur->win, False, NoEventMask, &ev);
     } else {
-        XKillClient(dpy, cur->win);     /* client doesn't speak WM_DELETE_WINDOW */
+        XKillClient(dpy, cur->win);    
     }
 }
 
@@ -255,7 +255,7 @@ static void cycle(const Arg *a) {
         pick = prev;
         if (!pick)
             for (c = cur->next; c; c = c->next)
-                if (c->ws == ws) pick = c;      /* wrap to the last one */
+                if (c->ws == ws) pick = c;     
     }
 
     if (pick && pick != cur) raise_focus(pick);
@@ -293,7 +293,7 @@ static void quit(const Arg *a) {
     running = 0;
 }
 
-/* ---- events ---- */
+/* events*/
 
 static void button_press(XEvent *e) {
     XWindowAttributes wa;
@@ -353,7 +353,7 @@ static void map_request(XEvent *e) {
     manage(w, 0);
     if (!(c = find(w))) return;
 
-    c->ws = ws;                 /* a window that maps itself shows up here */
+    c->ws = ws;                
     XMapWindow(dpy, w);
     raise_focus(c);
 }
@@ -363,7 +363,7 @@ static void configure_request(XEvent *e) {
     Client *c = find(ev->window);
     XWindowChanges wc;
 
-    if (c && c->fs) return;     /* fullscreen windows keep their size */
+    if (c && c->fs) return;     
 
     wc.x          = ev->x;
     wc.y          = ev->y;
@@ -385,11 +385,11 @@ static void unmap_notify(XEvent *e) {
     Client *c = find(e->xunmap.window);
 
     if (!c) return;
-    if (c->unmaps > 0) {        /* we hid it ourselves */
+    if (c->unmaps > 0) {       
         c->unmaps--;
         return;
     }
-    drop(c);                    /* client withdrew itself */
+    drop(c);                   
 }
 
 static void enter_notify(XEvent *e) {
@@ -444,10 +444,10 @@ static void mapping_notify(XEvent *e) {
     }
 }
 
-/* ---- startup ---- */
+/* startup*/
 
 static int xerror(Display *d, XErrorEvent *e) {
-    return 0;                   /* windows vanish all the time, ignore */
+    return 0;                  
 }
 
 static int xerror_start(Display *d, XErrorEvent *e) {
