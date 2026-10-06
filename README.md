@@ -1,6 +1,6 @@
 # TSWM (Texivi's Suckless Window Manager)
 
-TSWM is a tiny floating X11 window manager written in C.
+TSWM is a suckless, single file, floating X11 window manager written in C.
 
 ## Size
 
@@ -19,7 +19,7 @@ Part of The [Texivi software suite](tss.md).
 
 - A C compiler
 - Xlib headers
-- `xterm` (the default terminal, easy to change, see below)
+- `foot` terminal (the default, easy to change, see below)
 
 ## Install
 
