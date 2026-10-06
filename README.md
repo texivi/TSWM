@@ -2,7 +2,7 @@
 
 TSWM is a tiny floating X11 window manager written in C.
 
-Part of [Texivi's software suite](tss.md).
+Part of The [Texivi software suite](tss.md).
 
 ## Features
 
@@ -10,15 +10,11 @@ Part of [Texivi's software suite](tss.md).
 - Move and resize
 - Fullscreen and center
 - 6 workspaces
-- One source file, about 500 lines
 
 ## Requirements
 
-- A C compiler (`cc`)
+- A C compiler
 - Xlib headers
-  - Debian/Ubuntu: `sudo apt install build-essential libx11-dev`
-  - Fedora: `sudo dnf install gcc libX11-devel`
-  - Arch: `sudo pacman -S base-devel libx11`
 - `xterm` (the default terminal, easy to change, see below)
 
 ## Install
@@ -28,12 +24,9 @@ git clone https://github.com/texivi/TSWM
 cd TSWM
 sh install.sh
 ```
+And it will be automatically added to your login manager.
 
-The installer builds TSWM with `cc` and installs it to `/usr/local/bin`. It then detects your login manager (GDM, SDDM, LightDM, LXDM or ly) and asks if you want TSWM added to the login screen. Log out and pick **TSWM** from the session menu.
-
-On GDM, click the gear icon on the password screen to choose a session.
-
-No login manager, or xdm/slim? The installer offers to create `~/.xinitrc` (or `~/.xsession` for xdm) containing `exec tswm`. Then start it with:
+if you don't have one the installer will edit `~/.xinitrc` (or `~/.xsession` for xdm) start it with:
 
 ```
 startx
@@ -47,7 +40,7 @@ Use `sh install.sh -y` to answer yes to every question.
 sh install.sh uninstall
 ```
 
-This removes the binary and the login entry. A line in `~/.xinitrc` or `~/.xsession` is left alone.
+This removes the binary and the login entry. the lines in `~/.xinitrc` or `~/.xsession` aren't deleted 
 
 ## Keybinds
 
@@ -69,9 +62,9 @@ This removes the binary and the login entry. A line in `~/.xinitrc` or `~/.xsess
 
 ## Changing the keybinds
 
-There is no config file. Open `tswm.c` and edit the section between `keybinds start` and `keybinds end`, then run `sh install.sh` again. Log out and back in (or restart TSWM) to apply it.
+Open `tswm.c` and edit the section between `keybinds start` and `keybinds end`, then run `sh install.sh` again. Log out and back in (or restart TSWM) to apply it.
 
-Each bind is one line: modifier, key, action, argument.
+Each bind is a modifier, key, action and argument.
 
 ```c
 {MOD, XK_Return, spawn, {.cmd = term}},
@@ -90,8 +83,6 @@ static const char *browser[] = {"firefox", NULL};
 
 {MOD, XK_b, spawn, {.cmd = browser}},
 ```
-
-Available actions: `spawn`, `close_win`, `fullscreen`, `center`, `cycle`, `goto_ws`, `send_ws`, `quit`.
 
 `MOD` is `Mod4Mask` (Super). Use `Mod1Mask` for Alt. `NWS` sets the number of workspaces.
 
