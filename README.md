@@ -2,14 +2,18 @@
 
 TSWM is a tiny floating X11 window manager written in C.
 
+## Size
+
+The WM is *Under* ***420*** *LOC* and is *under* ***14 Kilobytes***
+
 Part of The [Texivi software suite](tss.md).
 
 ## Features
 
-- Floating windows, focus follows the mouse
+- Floating windows (duh), focus follows the mouse
 - Move and resize
 - Fullscreen and center
-- 6 workspaces
+- Workslaces
 
 ## Requirements
 
@@ -24,7 +28,7 @@ git clone https://github.com/texivi/TSWM
 cd TSWM
 sh install.sh
 ```
-And it will be automatically added to your login manager.
+TWSM will be added to your login manager.
 
 if you don't have one the installer will edit `~/.xinitrc` (or `~/.xsession` for xdm) start it with:
 
@@ -62,7 +66,7 @@ This removes the binary and the login entry. the lines in `~/.xinitrc` or `~/.xs
 
 ## Changing the keybinds
 
-Open `tswm.c` and edit the section between `keybinds start` and `keybinds end`, then run `sh install.sh` again. Log out and back in (or restart TSWM) to apply it.
+Open `tswm.c` and edit the section at `keybinds start` then run `sh install.sh` again. Log out and back in (or restart TSWM) to apply it.
 
 Each bind is a modifier, key, action and argument.
 
