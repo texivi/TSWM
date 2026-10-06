@@ -1,18 +1,15 @@
 # TSWM (Texivi's Suckless Window Manager)
 
-TSWM is a tiny floating X11 window manager written in C. It manages windows and nothing else: no bar, no borders, no wallpaper and no config parser.
+TSWM is a tiny floating X11 window manager written in C.
 
 Part of [Texivi's software suite](tss.md).
 
 ## Features
 
 - Floating windows, focus follows the mouse
-- Move and resize windows with the mouse
+- Move and resize
 - Fullscreen and center
 - 6 workspaces
-- Closes windows politely (`WM_DELETE_WINDOW`) and only force-kills programs that don't support it
-- Adopts already-open windows if you restart it
-- Refuses to start if another window manager is running
 - One source file, about 500 lines
 
 ## Requirements
