@@ -40,7 +40,7 @@ static void goto_ws(const Arg *a);
 static void send_ws(const Arg *a);
 static void quit(const Arg *a);
 
-static const char *term[] = {"xterm", NULL};
+static const char *term[] = {"foot", NULL};
 
 static const Key keys[] = {
 /* Keybinds */
